@@ -63,8 +63,10 @@ if streamlit.button('View Our Fruit List - Add your favorites'):
 #streamlit.stop()
 
 def insert_row_snowflake(new_fruit):
+  my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
   with my_cnx.cursor() as my_cur:
     my_cur.execute("insert into PC_RIVERY_DB.PUBLIC.FRUIT_LOAD_LIST values ('" + new_fruit + "')")
+    my_cnx.close()
     return "Thanks for adding " + new_fruit
     
 #Allow the end user to add a fruit to the list
